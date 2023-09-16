@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dr6nq5uif06x7"]
+[gd_scene load_steps=8 format=3 uid="uid://dr6nq5uif06x7"]
 
 [ext_resource type="Script" path="res://ship1.gd" id="1_2tfwe"]
+[ext_resource type="Texture2D" uid="uid://otxgcvspngoy" path="res://sprites/backtile1.png" id="1_n4jjy"]
 [ext_resource type="Texture2D" uid="uid://cacv40fd7xk67" path="res://sprites/ship1.png" id="1_w0ynh"]
 [ext_resource type="Texture2D" uid="uid://brrms3ejji142" path="res://sprites/planet1.png" id="2_0r3a5"]
+[ext_resource type="Script" path="res://Camera2D.gd" id="5_rgck8"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dcp0v"]
 
@@ -11,29 +13,32 @@ radius = 16.0
 
 [node name="Node2D" type="Node2D"]
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="TextureRect" type="TextureRect" parent="."]
+texture_filter = 1
+offset_left = -574.0
+offset_top = -403.0
+offset_right = 724.0
+offset_bottom = 283.0
+texture = ExtResource("1_n4jjy")
+stretch_mode = 1
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+node_a = NodePath("../player")
+node_b = NodePath("../RigidBody2D2")
+
+[node name="player" type="CharacterBody2D" parent="."]
 motion_mode = 1
 script = ExtResource("1_2tfwe")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="player"]
+position = Vector2(-2, 0)
+rotation = 4.71239
 shape = SubResource("CapsuleShape2D_dcp0v")
 
-[node name="Ship1" type="Sprite2D" parent="CharacterBody2D"]
+[node name="Ship1" type="Sprite2D" parent="player"]
 texture_filter = 1
-position = Vector2(0, -1)
+rotation = 1.5708
 texture = ExtResource("1_w0ynh")
-
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
-zoom = Vector2(2, 2)
-position_smoothing_enabled = true
-position_smoothing_speed = 30.0
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-drag_left_margin = 0.4
-drag_top_margin = 0.4
-drag_right_margin = 0.4
-drag_bottom_margin = 0.4
-editor_draw_drag_margin = true
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(36, 0)
@@ -45,3 +50,11 @@ shape = SubResource("CircleShape2D_hlee4")
 [node name="Planet1" type="Sprite2D" parent="RigidBody2D"]
 texture_filter = 1
 texture = ExtResource("2_0r3a5")
+
+[node name="RigidBody2D2" type="RigidBody2D" parent="."]
+
+[node name="camera" type="Camera2D" parent="RigidBody2D2"]
+zoom = Vector2(2, 2)
+position_smoothing_speed = 500.0
+editor_draw_screen = false
+script = ExtResource("5_rgck8")
