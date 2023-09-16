@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=3 uid="uid://dr6nq5uif06x7"]
+
+[ext_resource type="Script" path="res://ship1.gd" id="1_2tfwe"]
+[ext_resource type="Texture2D" uid="uid://cacv40fd7xk67" path="res://sprites/ship1.png" id="1_w0ynh"]
+[ext_resource type="Texture2D" uid="uid://brrms3ejji142" path="res://sprites/planet1.png" id="2_0r3a5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dcp0v"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlee4"]
+radius = 16.0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_2tfwe")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("CapsuleShape2D_dcp0v")
+
+[node name="Ship1" type="Sprite2D" parent="CharacterBody2D"]
+texture_filter = 1
+position = Vector2(0, -1)
+texture = ExtResource("1_w0ynh")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+zoom = Vector2(2, 2)
+position_smoothing_enabled = true
+position_smoothing_speed = 30.0
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+drag_left_margin = 0.4
+drag_top_margin = 0.4
+drag_right_margin = 0.4
+drag_bottom_margin = 0.4
+editor_draw_drag_margin = true
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(36, 0)
+freeze = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_hlee4")
+
+[node name="Planet1" type="Sprite2D" parent="RigidBody2D"]
+texture_filter = 1
+texture = ExtResource("2_0r3a5")
