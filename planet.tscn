@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://gl7lvairybmu"]
+
+[ext_resource type="Script" path="res://planet.gd" id="1_3dsry"]
+[ext_resource type="Texture2D" uid="uid://brrms3ejji142" path="res://sprites/planet1.png" id="2_f4fmd"]
+[ext_resource type="Texture2D" uid="uid://5axy4xacvtgt" path="res://sprites/atmosphere-trasns.png" id="3_v21ga"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hlee4"]
+radius = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mt3xg"]
+
+[node name="RigidBody2D" type="RigidBody2D"]
+freeze = true
+script = ExtResource("1_3dsry")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_hlee4")
+
+[node name="Planet1" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_f4fmd")
+
+[node name="Area2D" type="Area2D" parent="."]
+gravity_space_override = 1
+gravity_point = true
+gravity_point_center = Vector2(0, 0)
+gravity_direction = Vector2(0, 0)
+gravity = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+modulate = Color(0.278431, 1, 1, 1)
+scale = Vector2(10, 10)
+shape = SubResource("CircleShape2D_mt3xg")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D/CollisionShape2D"]
+texture_filter = 1
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("3_v21ga")
